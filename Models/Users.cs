@@ -19,21 +19,26 @@ namespace ClinicaCaniZzoo.Models
         public int IdUser { get; set; }
 
         [StringLength(50)]
+        [Required]
         public string Nome { get; set; }
 
         [StringLength(50)]
+        [Required]
         public string Cognome { get; set; }
 
         [StringLength(16)]
+        [Required]
         public string CodiceFiscale { get; set; }
 
         [StringLength(15)]
         public string Telefono { get; set; }
 
         [StringLength(100)]
+        [Required]
         public string Email { get; set; }
 
         [StringLength(100)]
+        [Required]
         public string Password { get; set; }
 
         [StringLength(50)]

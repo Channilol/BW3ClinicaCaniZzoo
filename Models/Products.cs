@@ -17,22 +17,29 @@ namespace ClinicaCaniZzoo.Models
         [Key]
         public int IdProdotto { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string NomeProdotto { get; set; }
 
+        [Required]
         public int? IdFornitore { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string TipoProdotto { get; set; }
 
+        [Required]
         [StringLength(255)]
         public string UsiProdotto { get; set; }
 
+        [Required]
         public string ImgProdotto { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Armadietto { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Cassetto { get; set; }
 

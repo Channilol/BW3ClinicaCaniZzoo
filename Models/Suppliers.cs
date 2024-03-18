@@ -17,12 +17,15 @@ namespace ClinicaCaniZzoo.Models
         [Key]
         public int IdFornitore { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string Nome { get; set; }
 
+        [Required]
         [StringLength(255)]
         public string Indirizzo { get; set; }
 
+        [Required]
         [StringLength(15)]
         public string Telefono { get; set; }
 
