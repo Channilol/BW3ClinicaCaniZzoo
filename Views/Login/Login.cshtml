@@ -1,0 +1,26 @@
+﻿@model ClinicaCaniZzoo.Models.Users
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="text-center">
+    <h2>Sign Up Here</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+
+        @Html.LabelFor(model => model.Email, "E-mail: ")
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Enter your E-mail.." } })
+        @Html.ValidationMessageFor(model => model.Email)
+        <br>
+        <br>
+        @Html.LabelFor(model => model.Password, "Password: ")
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder = "Enter your password.." } })
+        @Html.ValidationMessageFor(model => model.Password)
+        <br>
+        <br>
+        <button class="btn btn-info">Login</button>
+    }
+</div>
+

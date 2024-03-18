@@ -1,0 +1,46 @@
+﻿@model ClinicaCaniZzoo.Models.Users
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<div class="text-center">
+    <h2>Sign Up Here</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken();
+
+        @Html.LabelFor(model => model.Nome, "Name: ")
+        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { placeholder = "Enter your name.." } })
+        @Html.ValidationMessageFor(model => model.Nome)
+        <br>
+        <br>
+        @Html.LabelFor(model => model.Cognome, "Surname: ")
+        @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { placeholder = "Enter your surname.." } })
+        @Html.ValidationMessageFor(model => model.Cognome)
+        <br>
+        <br>
+        @Html.LabelFor(model => model.CodiceFiscale, "Fiscal Code: ")
+        @Html.EditorFor(model => model.CodiceFiscale, new { htmlAttributes = new { placeholder = "Enter your fiscal code.." } })
+        @Html.ValidationMessageFor(model => model.CodiceFiscale)
+        <br>
+        <br>
+        @Html.LabelFor(model => model.Telefono, "Phone: ") //da fixare nel db, non è una stringa
+        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { placeholder = "Enter your phone number.." } })
+        @Html.ValidationMessageFor(model => model.Telefono)
+        <br>
+        <br>
+        @Html.LabelFor(model => model.Email, "E-mail: ")
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Enter your E-mail.." } })
+        @Html.ValidationMessageFor(model => model.Email)
+        <br>
+        <br>
+        @Html.LabelFor(model => model.Password, "Password: ")
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder = "Enter your password.." } })
+        @Html.ValidationMessageFor(model => model.Password)
+        <br>
+        <br>
+        <button class="btn btn-info">Sign Up</button>
+    }
+</div>
+

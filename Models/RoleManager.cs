@@ -8,6 +8,7 @@ namespace ClinicaCaniZzoo.Models
 {
     public class RoleManager : RoleProvider
     {
+        DBContext db = new DBContext();
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -35,8 +36,13 @@ namespace ClinicaCaniZzoo.Models
             throw new NotImplementedException();
         }
 
-        public override string[] GetRolesForUser(string username)
+        public override string[] GetRolesForUser(string idUser)//arriva l'id come stringa
         {
+            var userId = Convert.ToInt32(idUser); //lo converto in int per fare una query select
+            string data = db.Users.Where(m => m.IdUser == userId).FirstOrDefault().Ruolo; //cerco il ruolo di chi fa login in base alla email che arriva
+            var roles = new string[] { data }; //metto in una lista di stringhe
+            return roles; //restituisco ruoli con cui farò authorize roles
+
             throw new NotImplementedException();
         }
 

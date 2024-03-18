@@ -30,7 +30,7 @@ namespace ClinicaCaniZzoo.Models
         [Required]
         public string CodiceFiscale { get; set; }
 
-        [StringLength(15)]
+        [StringLength(15)] //da fixare non è una stringa
         public string Telefono { get; set; }
 
         [StringLength(100)]
