@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ClinicaCaniZzoo.Models.Products>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Suppliers.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeProdotto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoProdotto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsiProdotto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImgProdotto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Armadietto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cassetto)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Suppliers.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeProdotto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoProdotto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UsiProdotto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImgProdotto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Armadietto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cassetto)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdProdotto }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdProdotto }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdProdotto })
+        </td>
+    </tr>
+}
+
+</table>

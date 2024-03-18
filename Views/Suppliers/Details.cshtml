@@ -1,0 +1,42 @@
+﻿@model ClinicaCaniZzoo.Models.Suppliers
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Suppliers</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Indirizzo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Indirizzo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdFornitore }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
