@@ -11,11 +11,14 @@ namespace ClinicaCaniZzoo.Models
         [Key]
         public int IdRicovero { get; set; }
 
+        [Required]
         public int? IdAnimale { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string StatoRicovero { get; set; }
 
+        [Required]
         public string FotoAnimale { get; set; }
 
         public virtual Animals Animals { get; set; }

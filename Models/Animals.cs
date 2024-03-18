@@ -18,21 +18,26 @@ namespace ClinicaCaniZzoo.Models
         [Key]
         public int IdAnimale { get; set; }
 
+        [Required]
         [Column(TypeName = "date")]
         public DateTime? DataRegistrazione { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Nome { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Tipologia { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string ColoreMantello { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? DataNascita { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Microchip { get; set; }
 

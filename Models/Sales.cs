@@ -11,10 +11,13 @@ namespace ClinicaCaniZzoo.Models
         [Key]
         public int IdVendita { get; set; }
 
+        [Required]
         public int? IdUser { get; set; }
 
+        [Required]
         public int? IdProdotto { get; set; }
 
+        [Required]
         [Column(TypeName = "date")]
         public DateTime? DataVendita { get; set; }
 
