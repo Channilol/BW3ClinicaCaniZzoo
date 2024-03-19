@@ -25,7 +25,7 @@
         @Html.ValidationMessageFor(model => model.CodiceFiscale)
         <br>
         <br>
-        @Html.LabelFor(model => model.Telefono, "Phone: ") //da fixare nel db, non è una stringa
+        @Html.LabelFor(model => model.Telefono, "Phone: ") 
         @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { placeholder = "Enter your phone number.." } })
         @Html.ValidationMessageFor(model => model.Telefono)
         <br>

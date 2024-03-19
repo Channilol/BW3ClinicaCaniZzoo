@@ -21,6 +21,17 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    @if (User.IsInRole("Admin"))//LINK SOLO PER GLI ADMIN
+                    {
+                        @*<li>@Html.ActionLink("", "", "", new { area = "" }, new { @class = "nav-link" })</li>*@
+                    }
+                    @if (User.IsInRole("User"))//LINK SOLO PER GLI USER
+                    {
+                        @*<li>@Html.ActionLink("", "", "", new { area = "" }, new { @class = "nav-link" })</li>*@
+
+                    }
+
                 </ul>
             </div>
         </div>
