@@ -237,6 +237,7 @@
     <Content Include="Web.config" />
     <Content Include="Views\Products\IndexFarmacia.cshtml" />
     <Content Include="Views\Report\VenditeInData.cshtml" />
+    <Content Include="Views\Animals\SearchAnimal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

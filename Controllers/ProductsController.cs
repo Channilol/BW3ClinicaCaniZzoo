@@ -20,6 +20,30 @@ namespace ClinicaCaniZzoo.Controllers
             return View(products);
         }
 
+        public ActionResult Search(string query)
+        {
+            if (!string.IsNullOrEmpty(query))
+            {
+                var productSearch = db.Products
+                                    .Where(p => p.NomeProdotto.Contains(query))
+                                    .Select(p => new {
+                                        IdProdotto = p.IdProdotto,
+                                        NomeProdotto = p.NomeProdotto,
+                                        ImgProdotto = p.ImgProdotto,
+                                        TipoProdotto = p.TipoProdotto,
+                                        Armadietto = p.Armadietto,
+                                        Cassetto = p.Cassetto
+                                    })
+                                    .ToList();
+                return Json(productSearch, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { message = "La query è vuota" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         // GET: Products
         public ActionResult Index()
         {
@@ -146,18 +170,21 @@ namespace ClinicaCaniZzoo.Controllers
                 {
                     IdUser = IdCliente,
                     DataVendita = DataVendita,
-                    N_Ricetta = NumeroRicetta,
                     IdProdotto = IdProdotto
                 };
+                if (NumeroRicetta != 0)
+                {
+                    sale.N_Ricetta = NumeroRicetta;
+                }
                 db.Sales.Add(sale);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Products");
+                TempData["Message"] = "Acquisto completato con successo.";
+                return RedirectToAction("IndexFarmacia", "Products");
             }
+            TempData["Message"] = "Si è verificato un errore durante l'acquisto.";
             return View("Details");
         }
-
-
 
         protected override void Dispose(bool disposing)
         {
