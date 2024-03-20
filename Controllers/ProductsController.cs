@@ -14,6 +14,12 @@ namespace ClinicaCaniZzoo.Controllers
     {
         private DBContext db = new DBContext();
 
+        public ActionResult IndexFarmacia()
+        {
+            var products = db.Products.Include(p => p.Suppliers).ToList();
+            return View(products);
+        }
+
         // GET: Products
         public ActionResult Index()
         {
