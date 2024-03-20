@@ -12,7 +12,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body class="min-vh-100">
 
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
@@ -49,9 +49,9 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content d-flex flex-column" style="height: calc(100vh - 75px);">
         @RenderBody()
-        <footer class="text-center fixed-bottom">
+        <footer class="text-center mt-auto">
         <hr />
             <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
         </footer>
