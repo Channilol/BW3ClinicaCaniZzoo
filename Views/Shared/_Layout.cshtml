@@ -1,7 +1,12 @@
-﻿<!DOCTYPE html>
+﻿﻿@{
+    var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+    var authCookie2 = Request.Cookies[FormsAuthentication.FormsCookieName];
+}
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - Applicazione ASP.NET</title>
@@ -29,9 +34,16 @@
                     @if (User.IsInRole("User"))//LINK SOLO PER GLI USER
                     {
                         @*<li>@Html.ActionLink("", "", "", new { area = "" }, new { @class = "nav-link" })</li>*@
-
                     }
-
+                    @if (authCookie2 != null)
+                    {
+                        <li>
+                            <form action="@Url.Action("Logout", "Login")" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
