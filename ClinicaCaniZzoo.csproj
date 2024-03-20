@@ -168,10 +168,12 @@
     <Compile Include="Controllers\HospitalizationsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\VenditaController.cs" />
     <Compile Include="Controllers\VisitsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -234,6 +236,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Products\IndexFarmacia.cshtml" />
+    <Content Include="Views\Report\VenditeInData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -294,6 +297,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Vendita\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\bootstrap.min.js.map" />
