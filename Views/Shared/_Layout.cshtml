@@ -25,6 +25,8 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Search Animal", "SearchAnimal", "Animals", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Add Animal", "Create", "Animals", new { area = "" }, new { @class = "nav-link" })</li>
 
                     @if (User.IsInRole("Admin"))//LINK SOLO PER GLI ADMIN
                     {
