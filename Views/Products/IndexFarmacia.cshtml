@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ClinicaCaniZzoo.Models.Products>
+
+@{
+    ViewBag.Title = "IndexFarmacia";
+}
+
+<h2>Prodotti Farmacia</h2>
+
+<h4>Cerca un prodotto:</h4>
+@using (Html.BeginForm(null, null, FormMethod.Get, new { @class = "d-flex searchForm" }))
+{
+    @Html.TextBox("searchInput", null, new { @class = "form-control searchInput", placeholder = "Scrivi un prodotto...", oninput = "updateH3(this.value)" })
+    <button class="btn btn-success mx-2" type="submit">Cerca</button>
+}
+<hr />
+<div class="d-flex flex-wrap cardContainer">
+    @foreach (var item in Model)
+    {
+        <div class="card m-3" style="width: 18rem;">
+            <img src=@item.ImgProdotto class="card-img-top" alt=@item.NomeProdotto>
+            <div class="card-body">
+                <h5 class="card-title">@item.NomeProdotto</h5>
+                <p class="card-text">@item.TipoProdotto <br />@item.Armadietto @item.Cassetto</p>
+                @Html.ActionLink("Ordina", "Details", "Products", new { id = item.IdProdotto }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+</div>
+<div class="d-none searchContainer">
+    <h3>Search div da riempire</h3>
+</div>
+
+@section scripts {
+    <script>
+        let cardContainer = document.querySelector(".cardContainer");
+        let searchContainer = document.querySelector(".searchContainer")
+        function updateH3(value) {
+            if (value !== "") {
+                cardContainer.classList.add("d-none");
+                searchContainer.classList.remove("d-none");
+            }
+            else {
+                cardContainer.classList.remove("d-none");
+                searchContainer.classList.remove("d-add");
+            }
+      }
+    </script>
+}
