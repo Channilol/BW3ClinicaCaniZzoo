@@ -1,69 +1,26 @@
-﻿@model IEnumerable<ClinicaCaniZzoo.Models.Products>
-
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Suppliers.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NomeProdotto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoProdotto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UsiProdotto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImgProdotto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Armadietto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cassetto)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Suppliers.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeProdotto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoProdotto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsiProdotto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImgProdotto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Armadietto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cassetto)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdProdotto }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdProdotto }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdProdotto })
-        </td>
-    </tr>
-}
-
-</table>
+﻿<div class="row align-items-stretch">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <img class="card-img-top" src="@item.ImgProdotto" alt="@item.NomeProdotto image">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">@item.NomeProdotto</h5>
+                    <p class="card-text">
+                        <span class="font-weight-bold">Tipo:</span> @item.TipoProdotto<br>
+                        <span class="font-weight-bold">Usi:</span> @item.UsiProdotto<br>
+                        <span class="font-weight-bold">Fornitore:</span> @item.Suppliers.Nome<br>
+                        <span class="font-weight-bold">Posizione:</span> Armadietto: @item.Armadietto, Cassetto: @item.Cassetto
+                    </p>
+                    <div class="mt-auto">
+                        <div class="d-flex justify-content-between">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.IdProdotto }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Details", "Details", new { id = item.IdProdotto }, new { @class = "btn btn-secondary" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IdProdotto }, new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

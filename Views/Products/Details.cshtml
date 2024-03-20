@@ -4,71 +4,95 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+        }
 
-<div>
-    <h4>Products</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Suppliers.Nome)
-        </dt>
+        .product-details {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
 
-        <dd>
-            @Html.DisplayFor(model => model.Suppliers.Nome)
-        </dd>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="product-details">
+                    <h2 class="text-center">Product Details</h2>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-4">Supplier:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Suppliers.Nome)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NomeProdotto)
-        </dt>
+                        <dt class="col-sm-4">Product Name:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.NomeProdotto)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.NomeProdotto)
-        </dd>
+                        <dt class="col-sm-4">Product Type:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.TipoProdotto)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoProdotto)
-        </dt>
+                        <dt class="col-sm-4">Uses:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.UsiProdotto)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TipoProdotto)
-        </dd>
+                        <dt class="col-sm-4">Image:</dt>
+                        <dd class="col-sm-8"><img src="@Html.DisplayFor(model => model.ImgProdotto)" class="img-fluid" alt="Product Image"></dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UsiProdotto)
-        </dt>
+                        <dt class="col-sm-4">Location:</dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Armadietto), @Html.DisplayFor(model => model.Cassetto)
+                        </dd>
+                    </dl>
+                    <div class="text-center">
+                        @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-secondary" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="product-purchase">
+                    <h2>Acquista Prodotto</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.UsiProdotto)
-        </dd>
+                    @using (Html.BeginForm("Acquista", "Products", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImgProdotto)
-        </dt>
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                @Html.Label("Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("IdCliente", ViewBag.Clienti as SelectList, "-- Seleziona Cliente --", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    @Html.Label("Data Vendita", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        <input type="date" name="DataVendita" class="form-control" required />
+                                    </div>
+                                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImgProdotto)
-        </dd>
+                                <div class="form-group">
+                                    @Html.Label("Numero Ricetta", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        <input type="number" name="NumeroRicetta" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Armadietto)
-        </dt>
+                        </div>
+                        <input type="hidden" name="IdProdotto" value="@Model.IdProdotto" />
+                        <input type="submit" value="Acquista" class="btn btn-primary" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Armadietto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cassetto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cassetto)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProdotto }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</body>
+</html>
