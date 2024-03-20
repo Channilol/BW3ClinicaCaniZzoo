@@ -21,10 +21,11 @@
 @if (!User.Identity.IsAuthenticated)
 {
 
-    <h2>Welcome, sign up or login if you own an account</h2>
-
-    @Html.ActionLink("Sign Up", "SignUp", "Login", null, new { @class = "btn btn-info" });
-    @Html.ActionLink("Login", "Login", "Login", null, new { @class = "btn btn-primary" });
+    <h2 class="text-center mb-5">Welcome, sign up or login if you own an account</h2>
+    <div class= "container d-flex align-content-center align-items-center flex-column">
+        @Html.ActionLink("Sign Up", "SignUp", "Login", null, new { @class = "btn btn-success text-white m-2" })
+        @Html.ActionLink("Login", "Login", "Login", null, new { @class = "btn btn-primary text-white m-2" })
+    </div>
 }
 else
 {
