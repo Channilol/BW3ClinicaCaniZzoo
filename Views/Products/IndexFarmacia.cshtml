@@ -7,11 +7,10 @@
 <h2>Prodotti Farmacia</h2>
 
 <h4>Cerca un prodotto:</h4>
-@using (Html.BeginForm(null, null, FormMethod.Get, new { @class = "d-flex searchForm" }))
-{
-    @Html.TextBox("searchInput", null, new { @class = "form-control searchInput", placeholder = "Scrivi un prodotto...", oninput = "updateH3(this.value)" })
-    <button class="btn btn-success mx-2" type="submit">Cerca</button>
-}
+<div>
+    @Html.TextBox("searchInput", null, new { @class = "form-control", placeholder = "Scrivi un prodotto..." })
+    <button id="btnSearch" class="btn btn-success mt-3" style="width:150px">Cerca</button>
+</div>
 <hr />
 <div class="d-flex flex-wrap cardContainer">
     @foreach (var item in Model)
@@ -26,23 +25,59 @@
         </div>
     }
 </div>
-<div class="d-none searchContainer">
-    <h3>Search div da riempire</h3>
+<div class="d-none flex-wrap searchContainer">
+    <h3>Non esiste nessun prodotto con questo nome.</h3>
 </div>
 
 @section scripts {
     <script>
         let cardContainer = document.querySelector(".cardContainer");
-        let searchContainer = document.querySelector(".searchContainer")
-        function updateH3(value) {
-            if (value !== "") {
-                cardContainer.classList.add("d-none");
-                searchContainer.classList.remove("d-none");
+        let searchContainer = document.querySelector(".searchContainer");
+        let btnSearch = document.querySelector("#btnSearch");
+
+        btnSearch.addEventListener("click", async () => {
+            let searchInput = document.querySelector("#searchInput").value;
+            if (searchInput !== "") {
+                let currentUrl = window.location.href;
+                let url = new URL(currentUrl);
+                let baseUrl = url.protocol + "//" + url.host;
+                try {
+                    const res = await fetch(baseUrl + "/Products/Search?query=" + searchInput)
+                    if (res.ok) {
+                        const data = await res.json();
+                        console.log(data)
+                        if (data.length > 0) {
+                            let products = "";
+                            for (let i = 0; i < data.length; i++) {
+                                let product = `<div class="card m-3" style="width: 18rem;">
+                                                  <img src="${data[i].ImgProdotto}" class="card-img-top" alt="${data[i].NomeProdotto}">
+                                                  <div class="card-body">
+                                                    <h5 class="card-title">${data[i].NomeProdotto}</h5>
+                                                    <p class="card-text">${data[i].TipoProdotto} <br />${data[i].Armadietto} ${data[i].Cassetto}</p>
+                                                    <a href="${baseUrl}/Products/Details/${data[i].IdProdotto}" class="btn btn-primary">Ordina</a>
+                                                  </div>
+                                                </div>`;
+                                products += product;
+                            }
+                            searchContainer.innerHTML = products
+                        }
+                        cardContainer.classList.add("d-none");
+                        searchContainer.classList.remove("d-none");
+                        searchContainer.classList.add("d-flex");
+                    }
+                    else {
+                        console.log('Errore nel caricamento dei dati')
+                    }
+                }
+                catch (err) {
+                    console.log('ERRORE!', err)
+                }
             }
             else {
+
                 cardContainer.classList.remove("d-none");
-                searchContainer.classList.remove("d-add");
+                searchContainer.classList.add("d-none");
             }
-      }
+        })
     </script>
 }

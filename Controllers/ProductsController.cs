@@ -20,6 +20,30 @@ namespace ClinicaCaniZzoo.Controllers
             return View(products);
         }
 
+        public ActionResult Search(string query)
+        {
+            if (!string.IsNullOrEmpty(query))
+            {
+                var productSearch = db.Products
+                                    .Where(p => p.NomeProdotto.Contains(query))
+                                    .Select(p => new {
+                                        IdProdotto = p.IdProdotto,
+                                        NomeProdotto = p.NomeProdotto,
+                                        ImgProdotto = p.ImgProdotto,
+                                        TipoProdotto = p.TipoProdotto,
+                                        Armadietto = p.Armadietto,
+                                        Cassetto = p.Cassetto
+                                    })
+                                    .ToList();
+                return Json(productSearch, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { message = "La query è vuota" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         // GET: Products
         public ActionResult Index()
         {
@@ -156,8 +180,6 @@ namespace ClinicaCaniZzoo.Controllers
             }
             return View("Details");
         }
-
-
 
         protected override void Dispose(bool disposing)
         {
