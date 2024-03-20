@@ -10,10 +10,6 @@
     <title>@ViewBag.Title</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            padding-top: 20px;
-        }
-
         .product-details {
             max-width: 600px;
             margin: 0 auto;
@@ -21,7 +17,6 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
@@ -50,7 +45,7 @@
                         </dd>
                     </dl>
                     <div class="text-center">
-                        @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-secondary" })
+                        @Html.ActionLink("Back to List", "IndexFarmacia", new { @class = "btn btn-secondary" })
                     </div>
                 </div>
             </div>
@@ -80,7 +75,7 @@
                                 <div class="form-group">
                                     @Html.Label("Numero Ricetta", htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        <input type="number" name="NumeroRicetta" class="form-control" />
+                                        <input type="number" name="NumeroRicetta" class="form-control" value="0"/>
                                     </div>
                                 </div>
                             </div>
