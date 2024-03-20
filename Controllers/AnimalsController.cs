@@ -128,5 +128,24 @@ namespace ClinicaCaniZzoo.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        public ActionResult SearchAnimal(string id)
+        {
+            Animals animal = db.Animals.FirstOrDefault(a => a.Microchip == id);
+
+            if (animal != null)
+            {
+                ViewBag.SearchedAnimal = animal;
+            }
+            else
+            {
+                ViewBag.SearchedAnimal = null; 
+            }
+
+            return View();
+        }
+
     }
 }

@@ -1,0 +1,48 @@
+﻿@model ClinicaCaniZzoo.Models.Animals
+
+@{
+    ViewBag.Title = "SearchAnimal";
+}
+
+<h2>SearchAnimal</h2>
+
+<div>
+    <h4>Animals</h4>
+
+
+    @using (Html.BeginForm())
+    {
+        <input type="text" name="id" />
+        <input type="submit" />
+    }
+
+
+
+
+
+
+
+    @if (ViewBag.SearchedAnimal != null)
+    {
+        <div class="container">
+            <h2>Animale Cercato</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Nome:</strong> @ViewBag.SearchedAnimal.Nome</p>
+                    <p><strong>Tipologia:</strong> @ViewBag.SearchedAnimal.Tipologia</p>
+                    <p><strong>Colore Mantello:</strong> @ViewBag.SearchedAnimal.ColoreMantello</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Data Registrazione:</strong> @ViewBag.SearchedAnimal.DataRegistrazione</p>
+                    <p><strong>Padrone:</strong> @ViewBag.SearchedAnimal.IdUser</p>
+                    <p><strong>Data di nascita:</strong> @ViewBag.SearchedAnimal.DataNascita</p>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
