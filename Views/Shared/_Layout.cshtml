@@ -34,7 +34,7 @@
                     {
                         @*<li>@Html.ActionLink("", "", "", new { area = "" }, new { @class = "nav-link" })</li>*@
                     }
-                    @if (authCookie2 != null)
+                    @if (authCookie != null)
                     {
                         <li>
                             <form action="@Url.Action("Logout", "Login")" method="post">
