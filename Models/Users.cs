@@ -36,6 +36,7 @@ namespace ClinicaCaniZzoo.Models
 
         [StringLength(100)]
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [StringLength(100)]

@@ -5,6 +5,7 @@
         }
 
         .linkSection {
+            cursor: pointer;
             margin-top: 30px;
             box-sizing: border-box;
             width: 400px;
@@ -24,18 +25,18 @@
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
 
-        .clinicaDiv:hover {
-            background-color: #0d6efd;
-            color: white;
-        }
+            .clinicaDiv:hover {
+                background-color: #0d6efd;
+                color: white;
+            }
 
-        .clinicaDiv div {
-            transition: transform 0.15s ease-in-out;
-        }
+            .clinicaDiv div {
+                transition: transform 0.15s ease-in-out;
+            }
 
-        .clinicaDiv:hover div {
-            transform: scale(1.2);
-        }
+            .clinicaDiv:hover div {
+                transform: scale(1.2);
+            }
 
         .farmaciaDiv {
             border: 5px solid #04ad12;
@@ -43,18 +44,18 @@
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
 
-        .farmaciaDiv:hover {
-            background-color: #04ad12;
-            color: white;
-        }
+            .farmaciaDiv:hover {
+                background-color: #04ad12;
+                color: white;
+            }
 
-        .farmaciaDiv div {
-            transition: transform 0.15s ease-in-out;
-        }
+            .farmaciaDiv div {
+                transition: transform 0.15s ease-in-out;
+            }
 
-        .farmaciaDiv:hover div {
-            transform: scale(1.2);
-        }
+            .farmaciaDiv:hover div {
+                transform: scale(1.2);
+            }
 
         .usedDiv {
             border: 5px solid #8789fe;
@@ -62,25 +63,25 @@
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
 
-        .usedDiv:hover {
-            background-color: #8789fe;
-            color: white;
-        }
+            .usedDiv:hover {
+                background-color: #8789fe;
+                color: white;
+            }
 
-        .usedDiv div {
-            transition: transform 0.15s ease-in-out;
-        }
+            .usedDiv div {
+                transition: transform 0.15s ease-in-out;
+            }
 
-        .usedDiv:hover div {
-            transform: scale(1.15);
-        }
+            .usedDiv:hover div {
+                transform: scale(1.15);
+            }
     </style>
 }
 
 <main class="d-flex flex-column h-100">
-      @if (TempData["Success"] != null)  //Feedback positivo riuscita operazione
+    @if (TempData["Success"] != null)  //Feedback positivo riuscita operazione
     {
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success" role="alert" style="background-color: #8fe282;">
             @TempData["Success"]
         </div>
     }
@@ -95,21 +96,46 @@
     <div class="linksContainer d-flex flex-wrap justify-content-evenly mt-5">
         <div class="linkSection clinicaDiv">
             <div>
-                Sei un veterinario?
-                @Html.ActionLink("Vai alla clinica veterinaria", "Index", "Hospitalizations", new { area = "" }, new { @class = "nav-link" })
+                Sei un veterinario?<br />
+                Vai alla clinica veterinaria
             </div>
         </div>
         <div class="linkSection farmaciaDiv">
             <div>
-                Sei un farmacista?
-                @Html.ActionLink("Vai alla farmacia", "IndexFarmacia", "Products", new { area = "" }, new { @class = "nav-link" })
+                Sei un farmacista?<br />
+                Vai alla farmacia
             </div>
         </div>
         <div class="linkSection usedDiv">
             <div>
-                Sei un utente?
-                @Html.ActionLink("Cerca il tuo animale domestico", "SearchAnimal", "Animals", new { area = "" }, new { @class = "nav-link" })
+                Sei un utente?<br />
+                Cerca il tuo animale domestico
             </div>
         </div>
     </div>
 </main>
+
+@section scripts {
+    <script>
+        let clinicaDiv = document.querySelector(".clinicaDiv")
+        let farmaciaDiv = document.querySelector(".farmaciaDiv")
+        let usedDiv = document.querySelector(".usedDiv")
+
+        let currentUrl = window.location.href;
+        let url = new URL(currentUrl);
+        let baseUrl = url.protocol + "//" + url.host;
+
+
+        clinicaDiv.addEventListener("click", () => {
+            window.location.href = baseUrl + "/Hospitalizations/Index"
+        })
+
+        farmaciaDiv.addEventListener("click", () => {
+            window.location.href = baseUrl + "/Products/IndexFarmacia"
+        })
+
+        usedDiv.addEventListener("click", () => {
+            window.location.href = baseUrl + "/Animals/SearchAnimal"
+        })
+    </script>
+}
