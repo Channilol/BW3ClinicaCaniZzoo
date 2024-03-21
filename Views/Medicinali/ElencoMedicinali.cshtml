@@ -1,0 +1,47 @@
+﻿@model ClinicaCaniZzoo.Models.Medicinale
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elenco dei medicinali</title>
+</head>
+<body>
+    @using (Html.BeginForm("GetElencoMedicinali", "Medicinali"))
+    {
+        @Html.LabelFor(model => model.CodiceFiscale, "Codice Fiscale: ")
+        @Html.EditorFor(model => model.CodiceFiscale)
+        @Html.ValidationMessageFor(model => model.CodiceFiscale)
+        <br>
+        <br>
+        <button class="btn btn-warning">Dio cane</button>
+    }
+
+
+    @if (ViewBag.ElencoMedicinali != null)
+    {
+        <h1>Elenco dei medicinali</h1>
+        <table>
+            <tr>
+                <th>Cognome</th>
+                <th>Nome</th>
+                <th>Codice Fiscale</th>
+                <th>Nome Prodotto</th>
+                <th>Data Vendita</th>
+                <th>Numero Ricetta</th>
+            </tr>
+            @foreach (var medicinale in ViewBag.ElencoMedicinali)
+            {
+                <tr>
+                    <td>@medicinale.Cognome</td>
+                    <td>@medicinale.Nome</td>
+                    <td>@medicinale.CodiceFiscale</td>
+                    <td>@medicinale.NomeProdotto</td>
+                    <td>@medicinale.DataVendita.ToShortDateString()</td>
+                    <td>@medicinale.N_Ricetta</td>
+                </tr>
+            }
+        </table>
+    }
+
+</body>
+</html>
