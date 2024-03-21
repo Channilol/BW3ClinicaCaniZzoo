@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace WebApplication.Controllers
 {
+    [Authorize (Roles = "AdminF")]
     public class MedicinaliController : Controller
     {
 
@@ -20,7 +21,8 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetElencoMedicinali(string codiceFiscale)
+        [ValidateAntiForgeryToken]
+        public ActionResult GetElencoMedicinali([Bind(Include = "codiceFiscale")]string codiceFiscale)
         {
             var connString = ConfigurationManager.ConnectionStrings["DBContext"].ToString();
             List<Medicinale> elencoMedicinali = new List<Medicinale>();

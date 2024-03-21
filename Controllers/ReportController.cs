@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ClinicaCaniZzoo.Controllers
 {
+    [Authorize (Roles = "AdminF")]
     public class ReportController : Controller
     {
         private readonly DBContext _context = new DBContext();

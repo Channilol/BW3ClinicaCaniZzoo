@@ -8,6 +8,7 @@
 <body>
     @using (Html.BeginForm("GetElencoMedicinali", "Medicinali"))
     {
+        @Html.AntiForgeryToken();
         @Html.LabelFor(model => model.CodiceFiscale, "Codice Fiscale: ")
         @Html.EditorFor(model => model.CodiceFiscale)
         @Html.ValidationMessageFor(model => model.CodiceFiscale)
