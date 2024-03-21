@@ -17,11 +17,6 @@
     }
 
 
-
-
-
-
-
     @if (ViewBag.SearchedAnimal != null)
     {
         <div class="container">
@@ -34,8 +29,16 @@
                 </div>
                 <div class="col-md-6">
                     <p><strong>Data Registrazione:</strong> @ViewBag.SearchedAnimal.DataRegistrazione</p>
-                    <p><strong>Padrone:</strong> @ViewBag.SearchedAnimal.IdUser</p>
                     <p><strong>Data di nascita:</strong> @ViewBag.SearchedAnimal.DataNascita</p>
+                    @if (@ViewBag.SearchedAnimal.NomePadrone != null)
+                    {
+                        <p><strong>Padrone:</strong> @ViewBag.SearchedAnimal.NomePadrone @ViewBag.SearchedAnimal.CognomePadrone</p>
+                    }
+                    else
+                    {
+                        <p><strong> Padrone: Senza padrone</strong></p>
+                    }
+
                 </div>
             </div>
         </div>
