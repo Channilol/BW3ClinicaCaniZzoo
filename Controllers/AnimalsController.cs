@@ -14,9 +14,7 @@ using ClinicaCaniZzoo.Models;
 
 namespace ClinicaCaniZzoo.Controllers
 {
-  
-
-
+    [Authorize(Roles = "AdminV")]
     public class AnimalsController : Controller
     {
 

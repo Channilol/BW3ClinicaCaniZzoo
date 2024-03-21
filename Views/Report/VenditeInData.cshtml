@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ClinicaCaniZzoo.Models.Products>
+
+<h2>Elenco Prodotti Venduti</h2>
+
+<form method="get" action="@Url.Action("VenditeInData", "Report")" class="mb-3">
+    <div class="form-group">
+        <label for="data">Filtra per Data Vendita:</label>
+        <input type="date" id="data" name="data" value="@ViewBag.Data" class="form-control" />
+    </div>
+    <div class="btn-group mt-3" role="group">
+        <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Filtra</button>
+        <a href="@Url.Action("VenditeInData", "Report")" class="btn btn-secondary">Mostra Tutto</a>
+    </div>
+</form>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Prodotto</th>
+                <th>Nome Prodotto</th>
+                <th>Categoria</th>
+                <th>Data Acquisto</th>
+                <th>Acquirente</th>
+                <th>Altre Info</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prodotto in Model)
+            {
+                
+                if (prodotto.Sales.Any())
+                {
+                    foreach (var vendita in prodotto.Sales)
+                    {
+                        <tr>
+                            <td>@prodotto.IdProdotto</td>
+                            <td>@prodotto.NomeProdotto</td>
+                            <td>@prodotto.TipoProdotto</td>
+                            <td>@(vendita.DataVendita.HasValue ? vendita.DataVendita.Value.ToString("d") : "N/A")</td>
+                            <
+                            <td>@(vendita.Users != null ? vendita.Users.Nome + " " + vendita.Users.Cognome : "N/A")</td>
+
+                            <td>Altre informazioni</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>@prodotto.IdProdotto</td>
+                        <td>@prodotto.NomeProdotto</td>
+                        <td>@prodotto.TipoProdotto</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>Altre informazioni</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -3,48 +3,48 @@
     ViewBag.Title = "SignUp";
 }
 
-    <h2 class="text-center">Sign Up</h2>
+<h2 class="text-center">Sign Up</h2>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken();
-        <div class="container d-flex align-content-center align-items-center flex-column">
-            <div class="form-group text-white text-center mb-2">
-                @Html.LabelFor(model => model.Nome, "Name: ")
-                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", placeholder = "First name" })
-                @Html.ValidationMessageFor(model => model.Nome)
-            </div>
-
-            <div class="form-group text-white text-center mb-2">
-                @Html.LabelFor(model => model.Cognome, "Surname: ")
-                @Html.TextBoxFor(model => model.Cognome, new { @class = "form-control", placeholder = "Surname" })
-                @Html.ValidationMessageFor(model => model.Cognome)
-            </div>
-
-            <div class="form-group text-white text-center mb-2">
-                @Html.LabelFor(model => model.CodiceFiscale, "Fiscal Code: ")
-                @Html.TextBoxFor(model => model.CodiceFiscale, new { @class = "form-control", placeholder = "Tax-Code" })
-                @Html.ValidationMessageFor(model => model.CodiceFiscale)
-            </div>
-
-            <div class="form-group text-white text-center mb-2">
-                @Html.LabelFor(model => model.Telefono, "Phone: ")
-                @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", placeholder = "Phone" })
-                @Html.ValidationMessageFor(model => model.Telefono)
-            </div>
-
-            <div class="form-group text-white text-center mb-2">
-                @Html.LabelFor(model => model.Email, "E-mail: ")
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "E-mail" })
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
-
-            <div class="form-group text-white text-center mb-3">
-                @Html.LabelFor(model => model.Password, "Password: ")
-                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
-                @Html.ValidationMessageFor(model => model.Password)
-            </div>
-
-            <button class="btn btn-success text-white">Sign Up</button>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    <div class="container d-flex align-content-center align-items-center flex-column">
+        <div class="form-group text-white text-center mb-2">
+            @Html.LabelFor(model => model.Nome, "Name: ")
+            @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", placeholder = "First name" })
+            @Html.ValidationMessageFor(model => model.Nome)
         </div>
-    }
+
+        <div class="form-group text-white text-center mb-2">
+            @Html.LabelFor(model => model.Cognome, "Surname: ")
+            @Html.TextBoxFor(model => model.Cognome, new { @class = "form-control", placeholder = "Surname" })
+            @Html.ValidationMessageFor(model => model.Cognome)
+        </div>
+
+        <div class="form-group text-white text-center mb-2">
+            @Html.LabelFor(model => model.CodiceFiscale, "Fiscal Code: ")
+            @Html.TextBoxFor(model => model.CodiceFiscale, new { @class = "form-control", placeholder = "Tax-Code" })
+            @Html.ValidationMessageFor(model => model.CodiceFiscale)
+        </div>
+
+        <div class="form-group text-white text-center mb-2">
+            @Html.LabelFor(model => model.Telefono, "Phone: ")
+            @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", placeholder = "Phone" })
+            @Html.ValidationMessageFor(model => model.Telefono)
+        </div>
+
+        <div class="form-group text-white text-center mb-2">
+            @Html.LabelFor(model => model.Email, "E-mail: ")
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "E-mail" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="form-group text-white text-center mb-3">
+            @Html.LabelFor(model => model.Password, "Password: ")
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <button class="btn btn-success text-white">Sign Up</button>
+    </div>
+}

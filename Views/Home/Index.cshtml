@@ -1,26 +1,115 @@
-﻿<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="aspnetTitle">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript. PROVA PROVA</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-            a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-            is an ideal platform for building RESTful applications on the .NET Framework.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-        </section>>
+@section styles {
+    <style>
+        .clinicaLogo {
+            width: 650px;
+        }
+
+        .linkSection {
+            margin-top: 30px;
+            box-sizing: border-box;
+            width: 400px;
+            height: 350px;
+            background-color: rgba(255,255,255,0.4);
+            font-size: 2.4em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            text-align: center;
+        }
+
+        .clinicaDiv {
+            border: 5px solid #0d6efd;
+            color: #0d6efd;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .clinicaDiv:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .clinicaDiv div {
+            transition: transform 0.15s ease-in-out;
+        }
+
+        .clinicaDiv:hover div {
+            transform: scale(1.2);
+        }
+
+        .farmaciaDiv {
+            border: 5px solid #04ad12;
+            color: #04ad12;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .farmaciaDiv:hover {
+            background-color: #04ad12;
+            color: white;
+        }
+
+        .farmaciaDiv div {
+            transition: transform 0.15s ease-in-out;
+        }
+
+        .farmaciaDiv:hover div {
+            transform: scale(1.2);
+        }
+
+        .usedDiv {
+            border: 5px solid #8789fe;
+            color: #8789fe;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .usedDiv:hover {
+            background-color: #8789fe;
+            color: white;
+        }
+
+        .usedDiv div {
+            transition: transform 0.15s ease-in-out;
+        }
+
+        .usedDiv:hover div {
+            transform: scale(1.15);
+        }
+    </style>
+}
+
+<main class="d-flex flex-column h-100">
+      @if (TempData["Success"] != null)  //Feedback positivo riuscita operazione
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["Success"]
+        </div>
+    }
+
+    @if (TempData["Fail"] != null) //Feedback negativo operazione fallita
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["Fail"]
+        </div>
+    }
+    <img class="clinicaLogo align-self-center" src="https://i.ibb.co/ZBw5xb8/clinica-canizzoo-high-resolution-logo.png" alt="Clinica CaniZzoo" />
+    <div class="linksContainer d-flex flex-wrap justify-content-evenly mt-5">
+        <div class="linkSection clinicaDiv">
+            <div>
+                Sei un veterinario?
+                @Html.ActionLink("Vai alla clinica veterinaria", "Index", "Hospitalizations", new { area = "" }, new { @class = "nav-link" })
+            </div>
+        </div>
+        <div class="linkSection farmaciaDiv">
+            <div>
+                Sei un farmacista?
+                @Html.ActionLink("Vai alla farmacia", "IndexFarmacia", "Products", new { area = "" }, new { @class = "nav-link" })
+            </div>
+        </div>
+        <div class="linkSection usedDiv">
+            <div>
+                Sei un utente?
+                @Html.ActionLink("Cerca il tuo animale domestico", "SearchAnimal", "Animals", new { area = "" }, new { @class = "nav-link" })
+            </div>
+        </div>
     </div>
 </main>

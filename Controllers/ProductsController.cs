@@ -10,6 +10,7 @@ using ClinicaCaniZzoo.Models;
 
 namespace ClinicaCaniZzoo.Controllers
 {
+    [Authorize (Roles = "AdminF")]
     public class ProductsController : Controller
     {
         private DBContext db = new DBContext();
@@ -170,14 +171,19 @@ namespace ClinicaCaniZzoo.Controllers
                 {
                     IdUser = IdCliente,
                     DataVendita = DataVendita,
-                    N_Ricetta = NumeroRicetta,
                     IdProdotto = IdProdotto
                 };
+                if (NumeroRicetta != 0)
+                {
+                    sale.N_Ricetta = NumeroRicetta;
+                }
                 db.Sales.Add(sale);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Products");
+                TempData["Message"] = "Acquisto completato con successo.";
+                return RedirectToAction("IndexFarmacia", "Products");
             }
+            TempData["Message"] = "Si è verificato un errore durante l'acquisto.";
             return View("Details");
         }
 
