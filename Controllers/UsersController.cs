@@ -20,7 +20,8 @@ namespace ClinicaCaniZzoo.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var usersWithRole = db.Users.Where(u => u.Ruolo == "User").ToList();
+            return View(usersWithRole);
         }
 
         // GET: Users/Details/5
