@@ -1,17 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using System.Xml.Linq;
 using ClinicaCaniZzoo.Models;
 
 namespace ClinicaCaniZzoo.Controllers
 {
+  
+
+
     public class AnimalsController : Controller
     {
+
+       
+
+
         private DBContext db = new DBContext();
 
         // GET: Animals
@@ -130,22 +141,55 @@ namespace ClinicaCaniZzoo.Controllers
         }
 
 
+        public ActionResult SearchAnimal()
+        {
+            return View("~/Views/Animals/SearchAnimal.cshtml");
+        }
 
+
+
+
+        [HttpPost]
         public ActionResult SearchAnimal(string id)
         {
-            Animals animal = db.Animals.FirstOrDefault(a => a.Microchip == id);
+            var connectionString = ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
 
-            if (animal != null)
+            if (id != null)
             {
-                ViewBag.SearchedAnimal = animal;
-            }
-            else
-            {
-                ViewBag.SearchedAnimal = null; 
-            }
+                string query = "SELECT a.Nome AS NomeAnimale, a.Tipologia, a.ColoreMantello, a.DataRegistrazione, a.DataNascita, u.Nome AS NomePadrone, u.Cognome AS CognomePadrone " +
+                               "FROM Animals AS a " +
+                               "LEFT JOIN Users AS u ON a.IdUser = u.IdUser " +
+                               "WHERE a.Microchip = @Microchip ";
 
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Microchip", id);
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            var animal = new AnimalViewModel
+                            {
+                                Nome = reader["NomeAnimale"].ToString(),
+                                Tipologia = reader["Tipologia"].ToString(),
+                                ColoreMantello = reader["ColoreMantello"].ToString(),
+                                DataRegistrazione = DateTime.Parse(reader["DataRegistrazione"].ToString()).ToShortDateString(),
+                                DataNascita = DateTime.Parse(reader["DataNascita"].ToString()).ToShortDateString(),
+                                NomePadrone = (reader["NomePadrone"] != DBNull.Value) ? reader["NomePadrone"].ToString() : "Senza Padrone",
+                                CognomePadrone = (reader["CognomePadrone"] != DBNull.Value) ? reader["CognomePadrone"].ToString() : null,
+                            };
+
+                            ViewBag.SearchedAnimal = animal;
+                        }
+                        reader.Close();
+                    }
+                }
+            }
             return View();
         }
+
 
     }
 }
