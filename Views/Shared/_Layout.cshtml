@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title - Applicazione ASP.NET</title>
+    <title>@ViewBag.Title - Clinica CaniZzoo</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -24,14 +24,29 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Login", "Index", "Login", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Search Animal", "SearchAnimal", "Animals", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Add Animal", "Create", "Animals", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("prodotti", "IndexFarmacia", "Products", new { area = "" }, new { @class = "nav-link" })</li>
 
-                    @if (User.IsInRole("Admin"))//LINK SOLO PER GLI ADMIN
+                    @if (User.IsInRole("AdminF"))//LINK SOLO PER GLI ADMIN FARMACIA
                     {
                         @*<li>@Html.ActionLink("", "", "", new { area = "" }, new { @class = "nav-link" })</li>*@
+                        <li>@Html.ActionLink("Medicine", "ElencoMedicinali", "Medicinali", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Products", "Index", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Reports", "VenditeInData", "Report", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Sales", "Index", "Sales", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Suppliers", "Index", "Suppliers", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Users", "Index", "Users", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @if (User.IsInRole("AdminV"))//LINK SOLO PER GLI ADMIN VETERINARIO
+                    {
+                        @*<li>@Html.ActionLink("", "", "", new { area = "" }, new { @class = "nav-link" })</li>*@
+                        <li>@Html.ActionLink("Animals", "Index", "Animals", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Hospitalizations", "Index", "Hospitalizations", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Users", "Index", "Users", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Visits", "Index", "Visits", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                     @if (User.IsInRole("User"))//LINK SOLO PER GLI USER
                     {
@@ -54,7 +69,7 @@
         @RenderBody()
         <footer class="text-center mt-auto">
         <hr />
-            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Clinica CaniZzoo</p>
         </footer>
     </div>
 
