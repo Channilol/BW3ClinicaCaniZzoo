@@ -4,11 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">Visits</h2>
+<div class="d-flex justify-content-center">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary my-3" })
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -47,9 +47,9 @@
             @Html.DisplayFor(modelItem => item.Prezzo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdVisita }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdVisita }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdVisita })
+            <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Edit", new { id = item.IdVisita })'">Edit</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Details", new { id = item.IdVisita })'">Details</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", new { id = item.IdVisita })'">Delete</button>
         </td>
     </tr>
 }
