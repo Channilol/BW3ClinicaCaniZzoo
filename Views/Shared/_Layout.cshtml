@@ -1,4 +1,4 @@
-﻿﻿@{
+@{
     var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
 }
 
@@ -11,12 +11,19 @@
     <title>@ViewBag.Title - Clinica CaniZzoo</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .bodyLayout {
+            background-color: #c1ffff;
+        }
+    </style>
+    @RenderSection("styles", required: false)
 </head>
-<body class="min-vh-100">
-
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+<body class="min-vh-100 bodyLayout">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary">
         <div class="container">
-            @Html.ActionLink("Nome dell'applicazione", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <img src="https://i.ibb.co/HN5SZvb/clinica-canizzoo-high-resolution-logo-2.png" alt="Bootstrap" width="150" height="45">
+            </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -65,11 +72,11 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content d-flex flex-column" style="height: calc(100vh - 75px);">
+    <div class="container body-content d-flex flex-column" style="min-height: calc(100vh - 90px);">
         @RenderBody()
         <footer class="text-center mt-auto">
         <hr />
-            <p>&copy; @DateTime.Now.Year - Clinica CaniZzoo</p>
+            <p>&copy; @DateTime.Now.Year - Team 4: Domenico Villani, Francesco Cannizzo, Alessandro Basile, Davide Buglione, Ihor Hovdan, Riccardo Antonini, Salvatore Ragosta</p>
         </footer>
     </div>
 
