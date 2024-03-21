@@ -1,4 +1,4 @@
-﻿@section styles {
+@section styles {
     <style>
         .clinicaLogo {
             width: 650px;
@@ -78,6 +78,19 @@
 }
 
 <main class="d-flex flex-column h-100">
+      @if (TempData["Success"] != null)  //Feedback positivo riuscita operazione
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["Success"]
+        </div>
+    }
+
+    @if (TempData["Fail"] != null) //Feedback negativo operazione fallita
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["Fail"]
+        </div>
+    }
     <img class="clinicaLogo align-self-center" src="https://i.ibb.co/ZBw5xb8/clinica-canizzoo-high-resolution-logo.png" alt="Clinica CaniZzoo" />
     <div class="linksContainer d-flex flex-wrap justify-content-evenly mt-5">
         <div class="linkSection clinicaDiv">

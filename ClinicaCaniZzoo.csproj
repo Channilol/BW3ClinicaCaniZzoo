@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalizationsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MedicinaliController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Models\Animals.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\Hospitalizations.cs" />
+    <Compile Include="Models\Medicinale.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\RoleManager.cs" />
     <Compile Include="Models\Sales.cs" />
@@ -237,6 +239,7 @@
     <Content Include="Views\Products\IndexFarmacia.cshtml" />
     <Content Include="Views\Report\VenditeInData.cshtml" />
     <Content Include="Views\Animals\SearchAnimal.cshtml" />
+    <Content Include="Views\Medicinali\ElencoMedicinali.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
