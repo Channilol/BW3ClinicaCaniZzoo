@@ -4,42 +4,28 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="d-flex justify-content-between my-3">
+    <h2 class="fw-bolder fs-1">Stato ricoveri generali</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Animals.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StatoRicovero)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FotoAnimale)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-primary">Aggiungi un nuovo ricovero</a>
+    </p>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Animals.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StatoRicovero)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FotoAnimale)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdRicovero }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdRicovero }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdRicovero })
-        </td>
-    </tr>
-}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="@item.FotoAnimale" class="card-img-top" style="height: 350px; object-fit: cover;" alt="Animal Image">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Animals.Nome</h5>
+                    <p class="card-text">Stato Ricovero: @item.StatoRicovero</p>
+                    <a href="@Url.Action("Edit", new { id = item.IdRicovero })" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("Details", new { id = item.IdRicovero })" class="btn btn-secondary">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
-</table>

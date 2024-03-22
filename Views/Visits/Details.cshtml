@@ -4,56 +4,45 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Visits</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Animals.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Animals.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Data)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Data)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EsameObiettivo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EsameObiettivo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DescrizioneCura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DescrizioneCura)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Prezzo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Prezzo)
-        </dd>
-
-    </dl>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Dettagli visita</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Nome animale:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Animals.Nome)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Data):
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Data)
+            </dd>
+            <dt>
+                Obiettivo esame:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EsameObiettivo)
+            </dd>
+            <dt>
+                Descrizione cura:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DescrizioneCura)
+            </dd>
+            <dt>
+                Prezzo cura:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Prezzo)
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-warning text-white" onclick="location.href='@Url.Action("Edit", new { id = Model.IdVisita })'">Edit</button>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
 </div>
-<p>
-    <button type="button" class="btn btn-warning text-white" onclick="location.href='@Url.Action("Edit", new { id = Model.IdVisita })'">Edit</button>
-</p>
-
-@Html.ActionLink("Back to List", "Index")

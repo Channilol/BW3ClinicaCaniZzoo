@@ -1,42 +1,30 @@
 ﻿@model ClinicaCaniZzoo.Models.Hospitalizations
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Dettaglio ricovero";
 }
 
-<h2>Details</h2>
+<h2>Dettaglio ricovero</h2>
 
-<div>
-    <h4>Hospitalizations</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Animals.Nome)
-        </dt>
+<div class="card">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="@Model.FotoAnimale" class="card-img" alt="Animal Image" style="width: 300px; max-height: 100%;">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <dl class="dl-horizontal">
+                    <dt>Nome animale:</dt>
+                    <dd>@Html.DisplayFor(model => model.Animals.Nome)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Animals.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StatoRicovero)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StatoRicovero)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FotoAnimale)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FotoAnimale)
-        </dd>
-
-    </dl>
+                    <dt>Stato ricovero:</dt>
+                    <dd>@Html.DisplayFor(model => model.StatoRicovero)</dd>
+                </dl>
+            </div>
+            <div class="card-body">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.IdRicovero }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdRicovero }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
