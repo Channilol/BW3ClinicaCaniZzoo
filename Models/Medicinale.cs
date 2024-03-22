@@ -12,6 +12,6 @@ namespace ClinicaCaniZzoo.Models
         public string CodiceFiscale { get; set; }
         public string NomeProdotto { get; set; }
         public DateTime DataVendita { get; set; }
-        public int N_Ricetta { get; set; }
+        public int? N_Ricetta { get; set; }
     }
 }

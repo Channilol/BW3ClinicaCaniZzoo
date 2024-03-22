@@ -38,7 +38,14 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Users.Nome)
+            @if (item.Users != null)
+            {
+                @Html.DisplayFor(modelItem => item.Users.Nome)
+            }
+            else
+            {
+                <p>Senza Padrone</p>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DataRegistrazione)

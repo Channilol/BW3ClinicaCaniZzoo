@@ -44,8 +44,9 @@ namespace WebApplication.Controllers
                             CodiceFiscale = reader["CodiceFiscale"].ToString(),
                             NomeProdotto = reader["NomeProdotto"].ToString(),
                             DataVendita = (DateTime)reader["DataVendita"],
-                            N_Ricetta = (int)reader["N_Ricetta"],
-                        };
+                            N_Ricetta = (reader["N_Ricetta"] != DBNull.Value) ? (int)reader["N_Ricetta"] : 0,
+
+                    };
                         elencoMedicinali.Add(medicinale);
                     }
                     ViewBag.ElencoMedicinali = elencoMedicinali;

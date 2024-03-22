@@ -20,6 +20,7 @@ namespace ClinicaCaniZzoo.Models
 
         [Required]
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataRegistrazione { get; set; }
 
         [Required]
@@ -35,6 +36,7 @@ namespace ClinicaCaniZzoo.Models
         public string ColoreMantello { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataNascita { get; set; }
 
         [Required]
