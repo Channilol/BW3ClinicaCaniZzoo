@@ -1,45 +1,32 @@
 ﻿@model IEnumerable<ClinicaCaniZzoo.Models.Suppliers>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Fornitori";
 }
 
-<h2>Index</h2>
+<div class="d-flex justify-content-between my-3">
+    <h2 class="fw-bolder fs-1">Fornitori</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Indirizzo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-primary">Aggiungi un nuovo fornitore</a>
+    </p>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Indirizzo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdFornitore }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdFornitore }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdFornitore })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <h5 class="card-title fw-bolder fs-2">@Html.DisplayFor(modelItem => item.Nome)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Indirizzo)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Telefono)</p>
+                    <div class="btn-group d-flex justify-content-evenly" role="group" aria-label="Basic example">
+                        <a href="@Url.Action("Edit", new { id = item.IdFornitore })" class="btn btn-primary">Modifica Fornitore</a>
+                        <a href="@Url.Action("Details", new { id = item.IdFornitore })" class="btn btn-success">Dettagli fornitore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
