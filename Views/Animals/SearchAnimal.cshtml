@@ -20,28 +20,49 @@
     @if (ViewBag.SearchedAnimal != null)
     {
         <div class="container">
-            <h2>Animale Cercato</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <p><strong>Nome:</strong> @ViewBag.SearchedAnimal.Nome</p>
-                    <p><strong>Tipologia:</strong> @ViewBag.SearchedAnimal.Tipologia</p>
-                    <p><strong>Colore Mantello:</strong> @ViewBag.SearchedAnimal.ColoreMantello</p>
-                </div>
-                <div class="col-md-6">
-                    <p><strong>Data Registrazione:</strong> @ViewBag.SearchedAnimal.DataRegistrazione</p>
-                    <p><strong>Data di nascita:</strong> @ViewBag.SearchedAnimal.DataNascita</p>
-                    @if (@ViewBag.SearchedAnimal.NomePadrone != null)
-                    {
-                        <p><strong>Padrone:</strong> @ViewBag.SearchedAnimal.NomePadrone @ViewBag.SearchedAnimal.CognomePadrone</p>
-                    }
-                    else
-                    {
-                        <p><strong> Padrone: Senza padrone</strong></p>
-                    }
-
+            <div>
+                <h2>Animale Cercato</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nome"><strong>Nome:</strong></label>
+                            <p id="nome">@ViewBag.SearchedAnimal.Nome</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipologia"><strong>Tipologia:</strong></label>
+                            <p id="tipologia">@ViewBag.SearchedAnimal.Tipologia</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="coloreMantello"><strong>Colore Mantello:</strong></label>
+                            <p id="coloreMantello">@ViewBag.SearchedAnimal.ColoreMantello</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="dataRegistrazione"><strong>Data Registrazione:</strong></label>
+                            <p id="dataRegistrazione">@ViewBag.SearchedAnimal.DataRegistrazione</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="dataNascita"><strong>Data di nascita:</strong></label>
+                            <p id="dataNascita">@ViewBag.SearchedAnimal.DataNascita</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="padrone"><strong>Padrone:</strong></label>
+                            @if (@ViewBag.SearchedAnimal.NomePadrone != null)
+                            {
+                                <p id="padrone">@ViewBag.SearchedAnimal.NomePadrone @ViewBag.SearchedAnimal.CognomePadrone</p>
+                            }
+                            else
+                            {
+                                <p id="padrone"><strong>Senza padrone</strong></p>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
+           
         </div>
+
     }
 
 
