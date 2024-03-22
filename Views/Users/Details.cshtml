@@ -1,74 +1,48 @@
 ﻿@model ClinicaCaniZzoo.Models.Users
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Dettagli utente";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Users</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cognome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cognome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CodiceFiscale)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CodiceFiscale)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Ruolo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Ruolo)
-        </dd>
-
-    </dl>
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Dettagli utente</h2>
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-3">
+                    Nome:
+                </dt>
+                <dd class="col-9">
+                    @Html.DisplayFor(model => model.Nome)
+                </dd>
+                <dt class="col-3">
+                    Cognome:
+                </dt>
+                <dd class="col-9">
+                    @Html.DisplayFor(model => model.Cognome)
+                </dd>
+                <dt class="col-3">
+                    Codice Fiscale:
+                </dt>
+                <dd class="col-9">
+                    @Html.DisplayFor(model => model.CodiceFiscale)
+                </dd>
+                <dt class="col-3">
+                    Telefono:
+                </dt>
+                <dd class="col-9">
+                    @Html.DisplayFor(model => model.Telefono)
+                </dd>
+                <dt class="col-3">
+                    Email:
+                </dt>
+                <dd class="col-9">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+            </dl>
+        </div>
+        <a href="@Url.Action("Edit", new { id = Model.IdUser })" class="btn btn-primary">Modifica anagrafica utente</a>
+        <a href="@Url.Action("Index")" class="btn btn-success">Ritorna alla lista clienti</a>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdUser }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

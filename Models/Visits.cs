@@ -16,6 +16,7 @@ namespace ClinicaCaniZzoo.Models
 
         [Required]
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Data { get; set; }
 
         [Required]
