@@ -1,18 +1,29 @@
-﻿<!DOCTYPE html>
+@{
+    var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+}
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title - Applicazione ASP.NET</title>
+    <title>@ViewBag.Title - Clinica CaniZzoo</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .bodyLayout {
+            background-color: #c1ffff;
+        }
+    </style>
+    @RenderSection("styles", required: false)
 </head>
-<body>
-
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+<body class="min-vh-100 bodyLayout">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary">
         <div class="container">
-            @Html.ActionLink("Nome dell'applicazione", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <img src="https://i.ibb.co/HN5SZvb/clinica-canizzoo-high-resolution-logo-2.png" alt="Bootstrap" width="150" height="45">
+            </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -20,16 +31,56 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    @if (User.IsInRole("AdminF"))//LINK SOLO PER GLI ADMIN FARMACIA
+                    {
+                        @*<li>@Html.ActionLink("", "", "", new { area = "" }, new { @class = "nav-link" })</li>*@
+                        <li>@Html.ActionLink("Products", "IndexFarmacia", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Sales", "Index", "Sales", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Suppliers", "Index", "Suppliers", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Users", "Index", "Users", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Reports", "VenditeInData", "Report", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Medicine", "ElencoMedicinali", "Medicinali", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @if (User.IsInRole("AdminV"))//LINK SOLO PER GLI ADMIN VETERINARIO
+                    {
+                        @*<li>@Html.ActionLink("", "", "", new { area = "" }, new { @class = "nav-link" })</li>*@
+                        <li>@Html.ActionLink("Animals", "Index", "Animals", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Hospitalizations", "Index", "Hospitalizations", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Users", "Index", "Users", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Visits", "Index", "Visits", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @if (User.IsInRole("User"))//LINK SOLO PER GLI USER
+                    {
+                        @*<li>@Html.ActionLink("", "", "", new { area = "" }, new { @class = "nav-link" })</li>*@
+                        <li>@Html.ActionLink("Search Animal", "SearchAnimal", "Animals", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
+                @if (authCookie == null)            
+                {
+                    <ul class="navbar-nav">
+                        <li>@Html.ActionLink("Login", "Index", "Login", new { area = "" }, new { @class = "btn btn-success" })</li>
+                    </ul>
+                }
+                @if (authCookie != null)
+                {
+                    <ul class="navbar-nav">
+                        <li>
+                            <form action="@Url.Action("Logout", "Login")" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content d-flex flex-column" style="min-height: calc(100vh - 90px);">
         @RenderBody()
+        <footer class="text-center mt-auto">
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Team 4: Domenico Villani, Francesco Cannizzo, Alessandro Basile, Davide Buglione, Ihor Hovdan, Riccardo Antonini, Salvatore Ragosta</p>
         </footer>
     </div>
 

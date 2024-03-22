@@ -1,69 +1,41 @@
 ﻿@model IEnumerable<ClinicaCaniZzoo.Models.Animals>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Animali";
 }
 
-<h2>Index</h2>
+<div class="d-flex justify-content-between my-3">
+    <h2 class="fw-bolder fs-1">Animali</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Users.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataRegistrazione)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipologia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ColoreMantello)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataNascita)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Microchip)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-primary">Aggiungi un nuovo animale</a>
+    </p>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Users.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataRegistrazione)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipologia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ColoreMantello)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataNascita)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Microchip)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdAnimale }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdAnimale }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdAnimale })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nome)</h5>
+                    <p class="card-text">
+                        <strong>Data di Registrazione:</strong> @Html.DisplayFor(modelItem => item.DataRegistrazione)<br />
+                        <strong>Tipologia:</strong> @Html.DisplayFor(modelItem => item.Tipologia)<br />
+                        <strong>Colore Mantello:</strong> @Html.DisplayFor(modelItem => item.ColoreMantello)<br />
+                        <strong>Data di Nascita:</strong> @Html.DisplayFor(modelItem => item.DataNascita)<br />
+                        <strong>Microchip:</strong> @Html.DisplayFor(modelItem => item.Microchip)<br />
+                        <strong>Padrone:</strong> @if (item.Users != null)
+                        {@Html.DisplayFor(modelItem => item.Users.Nome) }
+                    else
+                    { <span>Senza Padrone</span>}
+                    </p>
+                    <div class="btn-group" role="group">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdAnimale }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Details", "Details", new { id = item.IdAnimale }, new { @class = "btn btn-secondary" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

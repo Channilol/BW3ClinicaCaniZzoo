@@ -1,57 +1,31 @@
 ﻿@model IEnumerable<ClinicaCaniZzoo.Models.Visits>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Visite";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">Visite</h2>
+<div class="d-flex justify-content-center">
+    @Html.ActionLink("Aggiungi visita", "Create", null, new { @class = "btn btn-primary my-3" })
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Animals.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Data)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EsameObiettivo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DescrizioneCura)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prezzo)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Animals.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Data)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EsameObiettivo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DescrizioneCura)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prezzo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdVisita }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdVisita }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdVisita })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Animals.Nome)</h5>
+                    <p class="card-text">Data: @Html.DisplayFor(modelItem => item.Data)</p>
+                    <p class="card-text">Esame Obiettivo: @Html.DisplayFor(modelItem => item.EsameObiettivo)</p>
+                    <p class="card-text">Descrizione Cura: @Html.DisplayFor(modelItem => item.DescrizioneCura)</p>
+                    <p class="card-text">Prezzo: @Html.DisplayFor(modelItem => item.Prezzo)</p>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Edit", new { id = item.IdVisita })'">Edit</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Details", new { id = item.IdVisita })'">Details</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

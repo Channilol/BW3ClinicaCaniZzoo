@@ -10,6 +10,9 @@ using ClinicaCaniZzoo.Models;
 
 namespace ClinicaCaniZzoo.Controllers
 {
+
+    [Authorize(Roles = "AdminF, AdminV")]
+
     public class UsersController : Controller
     {
         private DBContext db = new DBContext();
@@ -17,7 +20,8 @@ namespace ClinicaCaniZzoo.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var usersWithRole = db.Users.Where(u => u.Ruolo == "User").ToList();
+            return View(usersWithRole);
         }
 
         // GET: Users/Details/5

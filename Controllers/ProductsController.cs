@@ -10,9 +10,40 @@ using ClinicaCaniZzoo.Models;
 
 namespace ClinicaCaniZzoo.Controllers
 {
+    [Authorize (Roles = "AdminF")]
     public class ProductsController : Controller
     {
         private DBContext db = new DBContext();
+
+        public ActionResult IndexFarmacia()
+        {
+            var products = db.Products.Include(p => p.Suppliers).ToList();
+            return View(products);
+        }
+
+        public ActionResult Search(string query)
+        {
+            if (!string.IsNullOrEmpty(query))
+            {
+                var productSearch = db.Products
+                                    .Where(p => p.NomeProdotto.Contains(query))
+                                    .Select(p => new {
+                                        IdProdotto = p.IdProdotto,
+                                        NomeProdotto = p.NomeProdotto,
+                                        ImgProdotto = p.ImgProdotto,
+                                        TipoProdotto = p.TipoProdotto,
+                                        Armadietto = p.Armadietto,
+                                        Cassetto = p.Cassetto
+                                    })
+                                    .ToList();
+                return Json(productSearch, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { message = "La query è vuota" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         // GET: Products
         public ActionResult Index()
@@ -22,19 +53,29 @@ namespace ClinicaCaniZzoo.Controllers
         }
 
         // GET: Products/Details/5
+        // Nel metodo Details del controller ProductsController
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Products products = db.Products.Find(id);
             if (products == null)
             {
                 return HttpNotFound();
             }
+
+            var clienti = db.Users.Where(r => r.Ruolo == "User")
+                      .Select(r => new { IdCliente = r.IdUser, NomeCompleto = r.Nome + " " + r.Cognome + " " + r.CodiceFiscale })
+                      .ToList();
+            ViewBag.Clienti = new SelectList(clienti, "IdCliente", "NomeCompleto");
+
             return View(products);
         }
+
+
 
         // GET: Products/Create
         public ActionResult Create()
@@ -118,6 +159,32 @@ namespace ClinicaCaniZzoo.Controllers
             db.Products.Remove(products);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Acquista(int IdCliente, DateTime DataVendita, int NumeroRicetta, int IdProdotto)
+        {
+            if (ModelState.IsValid)
+            {
+                Sales sale = new Sales
+                {
+                    IdUser = IdCliente,
+                    DataVendita = DataVendita,
+                    IdProdotto = IdProdotto
+                };
+                if (NumeroRicetta != 0)
+                {
+                    sale.N_Ricetta = NumeroRicetta;
+                }
+                db.Sales.Add(sale);
+                db.SaveChanges();
+
+                TempData["Message"] = "Acquisto completato con successo.";
+                return RedirectToAction("IndexFarmacia", "Products");
+            }
+            TempData["Message"] = "Si è verificato un errore durante l'acquisto.";
+            return View("Details");
         }
 
         protected override void Dispose(bool disposing)

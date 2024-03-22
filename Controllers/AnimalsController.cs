@@ -1,20 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using System.Xml.Linq;
 using ClinicaCaniZzoo.Models;
 
 namespace ClinicaCaniZzoo.Controllers
 {
+    [Authorize]
     public class AnimalsController : Controller
     {
+
+       
+
+
         private DBContext db = new DBContext();
 
         // GET: Animals
+        [Authorize(Roles = "AdminF, AdminV")]
         public ActionResult Index()
         {
             var animals = db.Animals.Include(a => a.Users);
@@ -22,6 +32,7 @@ namespace ClinicaCaniZzoo.Controllers
         }
 
         // GET: Animals/Details/5
+        [Authorize(Roles = "AdminF, AdminV")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +48,7 @@ namespace ClinicaCaniZzoo.Controllers
         }
 
         // GET: Animals/Create
+        [Authorize(Roles = "AdminF, AdminV")]
         public ActionResult Create()
         {
             ViewBag.IdUser = new SelectList(db.Users, "IdUser", "Nome");
@@ -48,6 +60,7 @@ namespace ClinicaCaniZzoo.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AdminF, AdminV")]
         public ActionResult Create([Bind(Include = "IdAnimale,DataRegistrazione,Nome,Tipologia,ColoreMantello,DataNascita,Microchip,IdUser")] Animals animals)
         {
             if (ModelState.IsValid)
@@ -62,6 +75,7 @@ namespace ClinicaCaniZzoo.Controllers
         }
 
         // GET: Animals/Edit/5
+        [Authorize(Roles = "AdminF, AdminV")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +96,7 @@ namespace ClinicaCaniZzoo.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AdminF, AdminV")]
         public ActionResult Edit([Bind(Include = "IdAnimale,DataRegistrazione,Nome,Tipologia,ColoreMantello,DataNascita,Microchip,IdUser")] Animals animals)
         {
             if (ModelState.IsValid)
@@ -95,6 +110,7 @@ namespace ClinicaCaniZzoo.Controllers
         }
 
         // GET: Animals/Delete/5
+        [Authorize(Roles = "AdminF, AdminV")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +128,7 @@ namespace ClinicaCaniZzoo.Controllers
         // POST: Animals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "AdminF, AdminV")]
         public ActionResult DeleteConfirmed(int id)
         {
             Animals animals = db.Animals.Find(id);
@@ -128,5 +145,57 @@ namespace ClinicaCaniZzoo.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public ActionResult SearchAnimal()
+        {
+            return View("~/Views/Animals/SearchAnimal.cshtml");
+        }
+
+
+
+
+        [HttpPost]
+        public ActionResult SearchAnimal(string id)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["DBContext"].ConnectionString;
+
+            if (id != null)
+            {
+                string query = "SELECT a.Nome AS NomeAnimale, a.Tipologia, a.ColoreMantello, a.DataRegistrazione, a.DataNascita, u.Nome AS NomePadrone, u.Cognome AS CognomePadrone " +
+                               "FROM Animals AS a " +
+                               "LEFT JOIN Users AS u ON a.IdUser = u.IdUser " +
+                               "WHERE a.Microchip = @Microchip ";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Microchip", id);
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            var animal = new AnimalViewModel
+                            {
+                                Nome = reader["NomeAnimale"].ToString(),
+                                Tipologia = reader["Tipologia"].ToString(),
+                                ColoreMantello = reader["ColoreMantello"].ToString(),
+                                DataRegistrazione = DateTime.Parse(reader["DataRegistrazione"].ToString()).ToShortDateString(),
+                                DataNascita = DateTime.Parse(reader["DataNascita"].ToString()).ToShortDateString(),
+                                NomePadrone = (reader["NomePadrone"] != DBNull.Value) ? reader["NomePadrone"].ToString() : "Senza Padrone",
+                                CognomePadrone = (reader["CognomePadrone"] != DBNull.Value) ? reader["CognomePadrone"].ToString() : null,
+                            };
+
+                            ViewBag.SearchedAnimal = animal;
+                        }
+                        reader.Close();
+                    }
+                }
+            }
+            return View();
+        }
+
+
     }
 }

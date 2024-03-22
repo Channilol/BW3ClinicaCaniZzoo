@@ -1,74 +1,162 @@
 ﻿@model ClinicaCaniZzoo.Models.Products
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Dettagli";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .product-details {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 80%; /* 80% della larghezza */
+            float: left; /* Per farlo affiancare al modulo di acquisto */
+        }
+        .product-purchase {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 20%; /* 20% della larghezza */
+            float: right; /* Per farlo affiancare ai dettagli del prodotto */
+        }
+        .product-details h2, .product-purchase h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .product-details dl dt, .product-details dl dd, .product-purchase label {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .product-details dl dd img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .product-details .text-center, .product-purchase .text-center {
+            text-align: center;
+        }
+        .btn-acquista {
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #00DD92;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-acquista:hover {
+            background-color: #009F3E;
+            color:white;
+        }
+        .btn-torna {
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #29ACFF;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-torna:hover {
+            background-color: #155B87;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group input[type="date"], .form-group input[type="number"], .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="product-details">
+                <h2 class="fw-bold">Dettagli Prodotto</h2>
+                <hr />
+                <div style="display: flex; margin-bottom:2%">
+                    <div style="flex: 1;">
+                        <dl>
+                            <div class="d-flex">
+                                <dt>Fornitore:</dt>
+                                <dd class="mx-2">@Html.DisplayFor(model => model.Suppliers.Nome)</dd>
+                                <dt>Tipo Prodotto:</dt>
+                                <dd class="mx-2">@Html.DisplayFor(model => model.TipoProdotto)</dd>
+                            </div>
 
-<h2>Details</h2>
+                            <dd class="fs-1 fw-bold text-dark">@Html.DisplayFor(model => model.NomeProdotto)</dd>
+                            <dd class="my-3 fs-4 fw-bold text-dark">@Html.DisplayFor(model => model.UsiProdotto)</dd>
 
-<div>
-    <h4>Products</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Suppliers.Nome)
-        </dt>
+                            <dt>Posizione:</dt>
+                            <dd>@Html.DisplayFor(model => model.Armadietto), @Html.DisplayFor(model => model.Cassetto)</dd>
+                        </dl>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: center; align-items: flex-start;">
+                        <img src="@Html.DisplayFor(model => model.ImgProdotto)" alt="Product Image" style="max-width: 100%; max-height: 100%; margin-top: 0;">
+                    </div>
+                </div>
+                <div class="text-center">
+                    @Html.ActionLink("Torna alla Lista", "IndexFarmacia", null, new { @class = "btn btn-torna" })
+                </div>
+            </div>
+            <div class="product-purchase">
+                <h2 class="fw-bold">Acquista Prodotto</h2>
+                <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.Suppliers.Nome)
-        </dd>
+                @using (Html.BeginForm("Acquista", "Products", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NomeProdotto)
-        </dt>
+                    <div class="form-group">
+                        @Html.Label("Cliente", htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("IdCliente", ViewBag.Clienti as SelectList, "-- Seleziona Cliente --", new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Data Vendita", htmlAttributes: new { @class = "control-label" })
+                        <input type="date" name="DataVendita" class="form-control" required />
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NomeProdotto)
-        </dd>
+                    <div class="form-group">
+                        @Html.Label("Numero Ricetta", htmlAttributes: new { @class = "control-label" })
+                        <input type="number" name="NumeroRicetta" class="form-control" value="0" />
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoProdotto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TipoProdotto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UsiProdotto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UsiProdotto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImgProdotto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImgProdotto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Armadietto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Armadietto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cassetto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cassetto)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProdotto }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                    <input type="hidden" name="IdProdotto" value="@Model.IdProdotto" />
+                    <div class="text-center">
+                        <input type="submit" value="Acquista" class="btn btn-acquista" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

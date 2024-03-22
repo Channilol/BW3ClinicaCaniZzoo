@@ -31,14 +31,17 @@ namespace ClinicaCaniZzoo.Models
         public string CodiceFiscale { get; set; }
 
         [StringLength(15)]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Il campo telefono deve contenere solo numeri interi.")]
         public string Telefono { get; set; }
 
         [StringLength(100)]
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [StringLength(100)]
         [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [StringLength(50)]

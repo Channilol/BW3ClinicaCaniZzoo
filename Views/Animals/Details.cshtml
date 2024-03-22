@@ -4,71 +4,44 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="card">
+    <div class="card-body">
+        <h4>Dettaglio Animale</h4>
+        <hr />
+        <dl>
+            <dt>Dati proprietario:</dt>
+            @if (Model.Users != null)
+            {
+                <dd>@Html.DisplayFor(model => model.Users.Nome) @Html.DisplayFor(model => model.Users.Cognome) @Html.DisplayFor(model => model.Users.CodiceFiscale)</dd>
+            }
+            else
+            {
+                <dd>Nessun proprietario</dd>
+            }
+            <dt>Data di registrazione:</dt>
+            <dd>@Html.DisplayFor(model => model.DataRegistrazione)</dd>
 
-<div>
-    <h4>Animals</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Users.Nome)
-        </dt>
+            <dt>Nome animale:</dt>
+            <dd>@Html.DisplayFor(model => model.Nome)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Users.Nome)
-        </dd>
+            <dt>@Html.DisplayNameFor(model => model.Tipologia):</dt>
+            <dd>@Html.DisplayFor(model => model.Tipologia)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataRegistrazione)
-        </dt>
+            <dt>Colore mantello:</dt>
+            <dd>@Html.DisplayFor(model => model.ColoreMantello)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataRegistrazione)
-        </dd>
+            <dt>Data di nascita:</dt>
+            <dd>@Html.DisplayFor(model => model.DataNascita)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tipologia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tipologia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ColoreMantello)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ColoreMantello)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataNascita)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataNascita)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Microchip)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Microchip)
-        </dd>
-
-    </dl>
+            <dt>@Html.DisplayNameFor(model => model.Microchip):</dt>
+            <dd>@Html.DisplayFor(model => model.Microchip)</dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.IdAnimale }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Ritorna alla lista degli animali", "Index", null, new { @class = "btn btn-secondary" })
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdAnimale }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
