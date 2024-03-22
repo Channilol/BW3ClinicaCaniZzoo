@@ -1,5 +1,6 @@
 ﻿using ClinicaCaniZzoo.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,29 +20,28 @@ namespace ClinicaCaniZzoo.Controllers
                 filtroData = DateTime.Parse(data);
             }
 
-         
-            var query = _context.Products
-                    .Include(p => p.Sales.Select(s => s.Users)) 
-                    .AsQueryable();
-
+            var vendite = new List<Sales>();
 
             if (filtroData.HasValue)
             {
-                int year = filtroData.Value.Year;
-                int month = filtroData.Value.Month;
-                int day = filtroData.Value.Day;
-
-                query = query.Where(p => p.Sales.Any(s => s.DataVendita.Value.Year == year &&
-                                                           s.DataVendita.Value.Month == month &&
-                                                           s.DataVendita.Value.Day == day));
+                vendite = await _context.Sales
+                            .Where(s => DbFunctions.TruncateTime(s.DataVendita) == DbFunctions.TruncateTime(filtroData.Value))
+                            .Include(s => s.Products)
+                            .Include(s => s.Users)
+                            .ToListAsync();
+            }
+            else
+            {
+                
+                vendite = await _context.Sales
+                            .Include(s => s.Products)
+                            .Include(s => s.Users)
+                            .ToListAsync();
             }
 
-            var prodottiConVendite = await query.ToListAsync();
-
             ViewBag.Data = data;
-            return View(prodottiConVendite);
+            return View(vendite);
         }
-
 
     }
 }

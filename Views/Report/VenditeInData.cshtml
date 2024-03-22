@@ -1,62 +1,83 @@
-﻿@model IEnumerable<ClinicaCaniZzoo.Models.Products>
+﻿@model List<ClinicaCaniZzoo.Models.Sales>
 
-<h2>Elenco Prodotti Venduti</h2>
+@{
+    ViewBag.Title = "Vendite per Data";
+}
 
-<form method="get" action="@Url.Action("VenditeInData", "Report")" class="mb-3">
-    <div class="form-group">
-        <label for="data">Filtra per Data Vendita:</label>
-        <input type="date" id="data" name="data" value="@ViewBag.Data" class="form-control" />
+<h2 class="text-center">Vendite per Data</h2>
+
+@using (Html.BeginForm("VenditeInData", "Report", FormMethod.Get))
+{
+    <div class="form-group mb-4">
+        <label for="data">Seleziona Data:</label>
+        <input type="date" name="data" class="form-control w-auto d-inline-block" value="@ViewBag.Data" />
     </div>
-    <div class="btn-group mt-3" role="group">
-        <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Filtra</button>
-        <a href="@Url.Action("VenditeInData", "Report")" class="btn btn-secondary">Mostra Tutto</a>
-    </div>
-</form>
+    <button type="submit" class="btn btn-primary">Mostra Vendite</button>
+    <a href="@Url.Action("VenditeInData", "Report")" class="btn btn-secondary">Mostra Tutti i Prodotti</a>
+}
 
-<div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID Prodotto</th>
-                <th>Nome Prodotto</th>
-                <th>Categoria</th>
-                <th>Data Acquisto</th>
-                <th>Acquirente</th>
-                <th>Altre Info</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var prodotto in Model)
+@if (!String.IsNullOrEmpty(ViewBag.Data))
+{
+   
+    if (Model != null && Model.Count > 0)
+    {
+        <div class="row justify-content-center mt-5">
+            @foreach (var vendita in Model)
             {
-                
-                if (prodotto.Sales.Any())
-                {
-                    foreach (var vendita in prodotto.Sales)
-                    {
-                        <tr>
-                            <td>@prodotto.IdProdotto</td>
-                            <td>@prodotto.NomeProdotto</td>
-                            <td>@prodotto.TipoProdotto</td>
-                            <td>@(vendita.DataVendita.HasValue ? vendita.DataVendita.Value.ToString("d") : "N/A")</td>
-                            <
-                            <td>@(vendita.Users != null ? vendita.Users.Nome + " " + vendita.Users.Cognome : "N/A")</td>
-
-                            <td>Altre informazioni</td>
-                        </tr>
-                    }
-                }
-                else
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card">
+                        <img src="@vendita.Products.ImgProdotto" class="card-img-top" alt="Immagine del prodotto">
+                        <div class="card-body">
+                            <h5 class="card-title">@vendita.Products.NomeProdotto</h5>
+                            <p class="card-text">Tipo: @vendita.Products.TipoProdotto - Usi: @vendita.Products.UsiProdotto</p>
+                            <p class="card-text">Cliente: @vendita.Users.Nome @vendita.Users.Cognome</p>
+                            <p class="card-text">Data Vendita: @(vendita.DataVendita.HasValue ? vendita.DataVendita.Value.ToString("dd/MM/yyyy") : "Non disponibile")</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-center">Nessun prodotto venduto nella data selezionata.</p>
+    }
+}
+else
+{
+    <!-- Logica per mostrare la tabella quando si vuole "Mostra Tutti i Prodotti" -->
+    if (Model != null && Model.Count > 0)
+    {
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th>ID Prodotto</th>
+                    <th>Nome Prodotto</th>
+                    <th>Tipo</th>
+                    <th>Usi</th>
+                    <th>Nome Cliente</th>
+                    <th>Cognome Cliente</th>
+                    <th>Data Vendita</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var vendita in Model)
                 {
                     <tr>
-                        <td>@prodotto.IdProdotto</td>
-                        <td>@prodotto.NomeProdotto</td>
-                        <td>@prodotto.TipoProdotto</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>Altre informazioni</td>
+                        <td>@vendita.Products.IdProdotto</td>
+                        <td>@vendita.Products.NomeProdotto</td>
+                        <td>@vendita.Products.TipoProdotto</td>
+                        <td>@vendita.Products.UsiProdotto</td>
+                        <td>@vendita.Users.Nome</td>
+                        <td>@vendita.Users.Cognome</td>
+                        <td>@(vendita.DataVendita.HasValue ? vendita.DataVendita.Value.ToString("dd/MM/yyyy") : "Non disponibile")</td>
                     </tr>
                 }
-            }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center">Non ci sono prodotti da mostrare.</p>
+    }
+}
