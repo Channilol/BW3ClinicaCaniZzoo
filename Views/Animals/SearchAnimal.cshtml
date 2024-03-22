@@ -4,44 +4,83 @@
     ViewBag.Title = "SearchAnimal";
 }
 
-<h2>SearchAnimal</h2>
 
 <div>
-    <h4>Animals</h4>
+
+    <div class="form-horizontal bg-white rounded-3 border col-6 mx-auto my-2">
+        <h2 class="text-primary fw-bold m-3 text-center">SearchAnimal</h2>
+        <hr />
 
 
-    @using (Html.BeginForm())
-    {
-        <input type="text" name="id" />
-        <input type="submit" />
-    }
+        @using (Html.BeginForm())
+        {
+            <div class="col-6 mx-auto">
+                <p class="text-center">Inserire il codice Microchip</p>
+                <input type="text" name="id" />
+                <input type="submit" class="btn btn-primary"  />
+            </div>
+          
+
+        }
+    </div>
+    
 
 
     @if (ViewBag.SearchedAnimal != null)
     {
-        <div class="container">
-            <h2>Animale Cercato</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <p><strong>Nome:</strong> @ViewBag.SearchedAnimal.Nome</p>
-                    <p><strong>Tipologia:</strong> @ViewBag.SearchedAnimal.Tipologia</p>
-                    <p><strong>Colore Mantello:</strong> @ViewBag.SearchedAnimal.ColoreMantello</p>
-                </div>
-                <div class="col-md-6">
-                    <p><strong>Data Registrazione:</strong> @ViewBag.SearchedAnimal.DataRegistrazione</p>
-                    <p><strong>Data di nascita:</strong> @ViewBag.SearchedAnimal.DataNascita</p>
-                    @if (@ViewBag.SearchedAnimal.NomePadrone != null)
-                    {
-                        <p><strong>Padrone:</strong> @ViewBag.SearchedAnimal.NomePadrone @ViewBag.SearchedAnimal.CognomePadrone</p>
-                    }
-                    else
-                    {
-                        <p><strong> Padrone: Senza padrone</strong></p>
-                    }
+        <div class="form-horizontal bg-white rounded-3 border col-6 mx-auto">
+            <div class="bg-white">
+                <h2 class="text-primary fw-bold m-3 text-center" >Animale Cercato</h2>
+                <hr />
+                <div class="row">
 
+
+                    <div class="col-6">
+                        <div class="form-group text-center">
+                            <label for="nome"><strong>Nome:</strong></label>
+                            <p id="nome">@ViewBag.SearchedAnimal.Nome</p>
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="tipologia"><strong>Tipologia:</strong></label>
+                            <p id="tipologia">@ViewBag.SearchedAnimal.Tipologia</p>
+                        </div>
+                        <div class="form-group text-center">
+                            <label for="coloreMantello"><strong>Colore Mantello:</strong></label>
+                            <p id="coloreMantello">@ViewBag.SearchedAnimal.ColoreMantello</p>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-6">
+                        <div class="col-md-6">
+                            <div class="form-group text-center">
+                                <label for="dataRegistrazione"><strong>Data Registrazione:</strong></label>
+                                <p id="dataRegistrazione">@ViewBag.SearchedAnimal.DataRegistrazione</p>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="dataNascita"><strong>Data di nascita:</strong></label>
+                                <p id="dataNascita">@ViewBag.SearchedAnimal.DataNascita</p>
+                            </div>
+                            <div class="form-group text-center">
+                                <label for="padrone"><strong>Padrone:</strong></label>
+                                @if (@ViewBag.SearchedAnimal.NomePadrone != null)
+                                {
+                                    <p id="padrone">@ViewBag.SearchedAnimal.NomePadrone @ViewBag.SearchedAnimal.CognomePadrone</p>
+                                }
+                                else
+                                {
+                                    <p id="padrone"><strong>Senza padrone</strong></p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                   
                 </div>
             </div>
         </div>
+
     }
 
 
