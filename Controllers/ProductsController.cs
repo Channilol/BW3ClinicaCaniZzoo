@@ -10,6 +10,7 @@ using ClinicaCaniZzoo.Models;
 
 namespace ClinicaCaniZzoo.Controllers
 {
+    [Authorize (Roles = "AdminF")]
     public class ProductsController : Controller
     {
         private DBContext db = new DBContext();

@@ -76,7 +76,7 @@ namespace ClinicaCaniZzoo.Controllers
                         {
                             FormsAuthentication.SetAuthCookie(loggedUser.IdUser.ToString(), true);//salvo l'id ottenuto dalla select e lo passo al rolemanager
                             TempData["Success"] = "Logged in successfully";
-                            return RedirectToAction("Index", "Login");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                     catch(Exception ex)
